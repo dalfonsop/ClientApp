@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
 
 export interface TaxType{
   id: number;
