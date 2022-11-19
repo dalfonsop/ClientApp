@@ -4,9 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { jsPDF } from "jspdf";
-import html2canvas from 'html2canvas';
-
 
 export interface TaxType{
   id: number;
@@ -108,9 +105,5 @@ export class InvoiceDataComponent implements OnInit {
 
 
   </div>`;
-
-html2canvas(a,{scale:3 }).then((canvas) => {
-  const pdf = new jsPDF('p','mm','letter');
-  pdf.html(a);
-  pdf.save();
-})}
+  }
+}
