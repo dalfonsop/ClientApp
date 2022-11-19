@@ -1,0 +1,220 @@
+<mat-card>
+  <form [formGroup]="invoiceDataForm">
+    <mat-stepper  [orientation]="(stepperOrientation |async)!">
+      <mat-step formGroupName="personalDataInformation" [stepControl]="invoiceDataForm.get('personalDataInformation')!">
+        <ng-template matStepLabel>Datos Personales - Novia</ng-template>
+        <mat-card style="border-radius: 6px;display: flexbox;">
+          <article style="display: inline-flexbox;">
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Nombres</mat-label>
+              <input matInput formControlName="names">
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Apellidos</mat-label>
+              <input matInput formControlName="lastNames">
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Fecha Nacimiento</mat-label>
+              <input matInput [matDatepicker]="datepicker" formControlName="birthday">
+              <mat-error>El campo es obligatorio</mat-error>
+              <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+              <mat-datepicker #datepicker disabled="false"></mat-datepicker>
+            </mat-form-field>
+          </article>
+          <article style="display: inline-flexbox;">
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Tipo de Documento</mat-label>
+              <mat-select formControlName="taxType">
+                <mat-option *ngFor="let taxType of taxTypes" [value]="taxType.id">
+                  {{taxType.detailTaxType}}
+                </mat-option>
+              </mat-select>
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Numero de Documento</mat-label>
+              <input matInput formControlName="taxNumber">
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Correo Electronico</mat-label>
+              <input matInput formControlName="email">
+            </mat-form-field>
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Usuario de Instagram</mat-label>
+              <input matInput formControlName="instagram">
+            </mat-form-field>
+          </article>
+          <button mat-button matStepperNext>Siguiente</button>
+        </mat-card>
+      </mat-step>
+      <mat-step formGroupName="brideService" [stepControl]="invoiceDataForm.get('brideService')!">
+        <ng-template matStepLabel>Servicios Novia</ng-template>
+        <ng-template matStepContent>
+            <mat-card style="border-radius: 5px;">
+              <mat-accordion style="display: flex;">
+                <mat-expansion-panel (opened)="true" >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title style="display: flex;">
+                      PAQUETE DE NOVIA
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Selecciona el paquete que deseas
+                      <mat-icon>brush</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+
+                  <div style="display: flex; flex-direction: column;">
+                    <mat-card style="flex: 1; margin-bottom: 2%;">
+                      <mat-card-title>Paquete Marfil</mat-card-title>
+                      <mat-card-subtitle>Es más barato y no se ve tan lindo</mat-card-subtitle>
+                      <mat-card-content>
+                        <h3>$550.000</h3>
+                        <section>
+                            <mat-radio-button class="example-margin" value="after">Quiero este pleeeease!</mat-radio-button>
+                        </section>
+                      </mat-card-content>
+                    </mat-card>
+  
+                    <mat-card style="flex: 1">
+                      <mat-card-title>Paquete Oro Rosa</mat-card-title>
+                      <mat-card-subtitle>Es muy caro pero queda lindo</mat-card-subtitle>
+                      <mat-card-content>
+                        <h3>$800.000</h3>
+                        <section>
+                            <mat-radio-button class="example-margin" value="after">Quiero este pleeeease!</mat-radio-button>
+                        </section>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                </mat-expansion-panel>
+              </mat-accordion>
+          
+              <mat-accordion class="example-headers-align">
+                <mat-expansion-panel (opened)="true" >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      SERVICIOS ADICIONALES PARA LA NOVIA
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      Selecciona los servicios adicionales que deseas
+                      <mat-icon>add</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                </mat-expansion-panel>
+              </mat-accordion>
+     
+              <mat-accordion class="example-headers-align">
+                <mat-expansion-panel (opened)="true" >
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      DOMICILIO
+                    </mat-panel-title>
+                    <mat-panel-description>
+                      ¿Deseas domicilioen tu prueba?
+                      <mat-icon>directions_car</mat-icon>
+                    </mat-panel-description>
+                  </mat-expansion-panel-header>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </mat-card>
+          <button mat-button matStepperPrevious style="margin: 1%;display: inline-block;">Atras</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </ng-template>
+      </mat-step>
+      <mat-step formGroupName="weddingInformation" [stepControl]="invoiceDataForm.get('weddingInformation')!">
+        <ng-template matStepLabel>Información Boda</ng-template>
+        <mat-card>
+          <article>
+            <mat-form-field appearance="fill" style="width: 100%; margin: 0.5%;">
+              <mat-label>Fecha Boda</mat-label>
+              <input matInput [matDatepicker]="datepickerboda" formControlName="date">
+              <mat-error>El campo es obligatorio</mat-error>
+              <mat-datepicker-toggle matSuffix [for]="datepickerboda"></mat-datepicker-toggle>
+              <mat-datepicker #datepickerboda disabled="false"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill" style="width: 100%">
+              <mat-label>Lugar de la Boda</mat-label>
+              <mat-select placeholder="Ejm. Subachoque" formControlName="city">
+                <mat-option *ngFor="let city of cities" [value]="city.id">
+                  {{city.name}}
+                </mat-option>
+              </mat-select>
+              <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="fill" style="width: 100% ;margin: 0.5%;">
+              <mat-label>Lugar del Servicio</mat-label>
+              <input matInput placeholder="Ejm. Hacienda La Margarita" formControlName="addres">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="fill" style="width: 100% ;margin: 0.5%;">
+              <mat-label>Hora para Iniciar fotos</mat-label>
+              <input matInput placeholder="Ejm. 13:25" formControlName="startindWeddingTime" type="time">
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width" appearance="fill" style="width: 100% ;margin: 0.5%;">
+              <mat-label>Hora Inicio Boda</mat-label>
+              <input matInput placeholder="Ejm. 16:00" formControlName="finalMakeupTime" type="time">
+            </mat-form-field>
+
+          </article>
+          <button mat-button matStepperPrevious style="margin: 1%;display: inline-block;">Atras</button>
+          <button mat-button matStepperNext>Siguiente</button>
+        </mat-card>
+      </mat-step>
+      <mat-step [stepControl]="invoiceDataForm.get('additionalServices')!">
+        <ng-template matStepLabel>Acompañantes</ng-template>
+        <div formArrayName="additionalServices">
+          <div *ngFor="let additionalService of additionalServices.controls; let i = index;">
+            <div [formGroupName]="i">
+
+              <mat-card>
+                <h3><b>Acompañante {{i + 1 }}</b></h3>
+                <mat-form-field class="example-full-width" appearance="fill" style="margin: 0.5%;width: 100%;">
+                  <mat-label>Nombres y Apellidos</mat-label>
+                  <input matInput placeholder="Nombres y apellidos acompañante" formControlName="name">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill" style="margin: 0.5%;width: 100%;">
+                  <mat-label>Celular</mat-label>
+                  <input matInput placeholder="Celular acompañante" formControlName="cellphone">
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width" appearance="fill" style="margin: 0.5%;width: 100%;">
+                  <mat-label>Comentarios</mat-label>
+                  <textarea matInput placeholder="Registra aquí algún comentario adicional que desees del acompañante"
+                    formControlName="details"></textarea>
+                </mat-form-field>
+
+                <button mat-button style="margin: 0.5%;width: 100%;" (click)="removeAdditionalService(i)">Quitar
+                  Acompañante</button>
+
+              </mat-card>
+            </div>
+
+          </div>
+
+          <button mat-button style="margin: 0.5%;width: 100%;" (click)="addAdditionalService()">Agregar
+            Acompañante</button>
+        </div>
+        <button mat-button matStepperPrevious style="margin: 0.5%;">Atras</button>
+        <button mat-button matStepperNext style="margin: 0.5%;">Siguiente</button>
+
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Resumen</ng-template>
+        <mat-card>
+          <button mat-button style="margin: 0.5%;display: flexbox;width: 100%;" (click)="gpdf()">Visualizar Cuenta de Cobro</button>
+        </mat-card>
+      </mat-step>
+    </mat-stepper>
+  </form>
+</mat-card>
