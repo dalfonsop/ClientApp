@@ -1,7 +1,7 @@
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { StepperOrientation } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { jsPDF } from "jspdf";
@@ -26,12 +26,12 @@ export interface Cities{
 })
 
 export class InvoiceDataComponent implements OnInit {
-  invoiceDataForm: FormGroup;
+  invoiceDataForm: UntypedFormGroup;
   taxTypes: TaxType[];
   cities: Cities[];
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: FormBuilder, breakPointObserver: BreakpointObserver) {
+  constructor(private _formBuilder: UntypedFormBuilder, breakPointObserver: BreakpointObserver) {
     this.stepperOrientation = breakPointObserver.observe('(min-width:800px)').pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
     this.invoiceDataForm = this._formBuilder.group({});
 
@@ -45,49 +45,49 @@ export class InvoiceDataComponent implements OnInit {
   buildForm() {
     this.invoiceDataForm = this._formBuilder.group({
       personalDataInformation: this._formBuilder.group({
-        names: new FormControl('', [Validators.required]),
-        lastNames: new FormControl('', [Validators.required]),
-        birthday: new FormControl('', [Validators.required]),
-        taxType: new FormControl('', [Validators.required]),
-        taxNumber: new FormControl('', [Validators.required]),
-        email: new FormControl('', []),
-        instagram: new FormControl('', []),
+        names: new UntypedFormControl('', [Validators.required]),
+        lastNames: new UntypedFormControl('', [Validators.required]),
+        birthday: new UntypedFormControl('', [Validators.required]),
+        taxType: new UntypedFormControl('', [Validators.required]),
+        taxNumber: new UntypedFormControl('', [Validators.required]),
+        email: new UntypedFormControl('', []),
+        instagram: new UntypedFormControl('', []),
       }),
       brideService: this._formBuilder.group({
-        selectedService: new FormControl('', []),
+        selectedService: new UntypedFormControl('', []),
         aditionalService: this._formBuilder.group({
-          armorSkin: new FormControl('', []),
-          accompaniment: new FormControl('', []),
+          armorSkin: new UntypedFormControl('', []),
+          accompaniment: new UntypedFormControl('', []),
 
         })
       }),
       weddingInformation: this._formBuilder.group({
-        date: new FormControl('', []),
-        city: new FormControl('', []),
-        addres: new FormControl('', []),
-        startindWeddingTime: new FormControl('', []),
-        finalMakeupTime: new FormControl('', []),
+        date: new UntypedFormControl('', []),
+        city: new UntypedFormControl('', []),
+        addres: new UntypedFormControl('', []),
+        startindWeddingTime: new UntypedFormControl('', []),
+        finalMakeupTime: new UntypedFormControl('', []),
       }),
       additionalServices: this._formBuilder.array([
         this._formBuilder.group({
-          name: new FormControl('', []),
-          cellphone: new FormControl('', []),
-          details: new FormControl('',[]),
-          serviceType: new FormControl('', []),
+          name: new UntypedFormControl('', []),
+          cellphone: new UntypedFormControl('', []),
+          details: new UntypedFormControl('',[]),
+          serviceType: new UntypedFormControl('', []),
         })
       ])
     })
   }
 
   get additionalServices() {
-    return this.invoiceDataForm.controls['additionalServices'] as FormArray
+    return this.invoiceDataForm.controls['additionalServices'] as UntypedFormArray
   }
 
   addAdditionalService() {
     const additionalService = this._formBuilder.group({
-      name: new FormControl('', [Validators.required]),
-      cellphone: new FormControl('', [Validators.required]),
-      serviceType: new FormControl('', [Validators.required]),
+      name: new UntypedFormControl('', [Validators.required]),
+      cellphone: new UntypedFormControl('', [Validators.required]),
+      serviceType: new UntypedFormControl('', [Validators.required]),
     })
 
     this.additionalServices.push(additionalService);

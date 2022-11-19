@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 
 export interface Tariff {
@@ -18,13 +18,13 @@ export interface Tariff {
   styleUrls: ['./principal.component.css']
 })
 export class PrincipalComponent implements OnInit {
-  totalForm: FormGroup;
+  totalForm: UntypedFormGroup;
   cols = ['id', 'baseValue', 'cost', 'margin']
   objList: MatTableDataSource<Tariff>[] = [];
   objdata: MatTableDataSource<Tariff> = new MatTableDataSource();
 
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(private _formBuilder: UntypedFormBuilder) {
     this.totalForm = this._formBuilder.group({});
   }
 
@@ -41,13 +41,13 @@ export class PrincipalComponent implements OnInit {
   }
 
   get list() {
-    return this.totalForm.controls['data'] as FormArray
+    return this.totalForm.controls['data'] as UntypedFormArray
   }
 
   addAdditionalService() {
     const additionalService = this._formBuilder.group({
-      id: new FormControl('', [Validators.required]),
-      name: new FormControl('', [Validators.required]),
+      id: new UntypedFormControl('', [Validators.required]),
+      name: new UntypedFormControl('', [Validators.required]),
     })
 
     this.list.push(additionalService);
