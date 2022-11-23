@@ -26,6 +26,7 @@ import {MatLegacySelectModule as MatSelectModule} from '@angular/material/legacy
 import {MatLegacyTableModule as MatTableModule} from '@angular/material/legacy-table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatLegacyRadioModule as MatRadioModule} from '@angular/material/legacy-radio';
+import { SelectServicesComponent } from './components/select-services/select-services.component';
 
 
 
@@ -34,7 +35,8 @@ import {MatLegacyRadioModule as MatRadioModule} from '@angular/material/legacy-r
     AppComponent,
     FooterComponent,
     InvoiceDataComponent,
-    PrincipalComponent
+    PrincipalComponent,
+    SelectServicesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

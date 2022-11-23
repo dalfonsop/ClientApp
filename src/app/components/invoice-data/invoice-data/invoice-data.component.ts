@@ -4,8 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
+import { Service } from 'src/app/models/Services';
 
 export interface TaxType{
   id: number;
@@ -28,6 +27,7 @@ export class InvoiceDataComponent implements OnInit {
   invoiceDataForm: UntypedFormGroup;
   taxTypes: TaxType[];
   cities: Cities[];
+  serviceList: Service[];
   stepperOrientation: Observable<StepperOrientation>;
 
   constructor(private _formBuilder: UntypedFormBuilder, breakPointObserver: BreakpointObserver) {
@@ -36,6 +36,9 @@ export class InvoiceDataComponent implements OnInit {
 
     this.taxTypes = [{id: 1, detailTaxType: 'Cedula Ciudadanía'},{id: 2, detailTaxType: 'Cedula Extranjería'},{id: 3, detailTaxType: 'Tarjeta Identidad'},{id: 4, detailTaxType: 'Pasaporte'}];
     this.cities = [{id:1, name:'Bogotá DC', deliveryCost: 60000}, {id:2, name:'Villa de Leyva', deliveryCost:320000}, {id:3, name:'Subachoque', deliveryCost:180000}, {id:4, name:'Duitama', deliveryCost: 300000}, {id:5, name:'Chia', deliveryCost:30000}, {id:6, name:'Cota', deliveryCost: 40000}];
+    this.serviceList = [{id:1,serviceName:'Paquete Coral',serviceValue:850000,servicesDetails:[{id:1, description:"Barato"},{id:2, description:"Lindo"},]},
+    {id:2,serviceName:'Paquete Oro Rosa',serviceValue:980000,servicesDetails:[{id:1, description:"Barato"},{id:2, description:"Lindo"},]},
+    {id:3,serviceName:'Paquete Marfil',serviceValue:600000,servicesDetails:[{id:1, description:"Barato"},{id:2, description:"Lindo"},]}]
   }
 
   ngOnInit(): void {

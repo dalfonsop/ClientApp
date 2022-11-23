@@ -1,0 +1,9 @@
+.card:hover{
+    box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+  }
+  
+.card:checked {
+    box-shadow: -1px 10px 29px 0px rgba(0,0,0,0.8);
+  }
+
+

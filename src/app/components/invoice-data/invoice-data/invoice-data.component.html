@@ -69,30 +69,11 @@
                       <mat-icon>brush</mat-icon>
                     </mat-panel-description>
                   </mat-expansion-panel-header>
-
-                  <div style="display: flex; flex-direction: column;">
-                    <mat-card style="flex: 1; margin-bottom: 2%;">
-                      <mat-card-title>Paquete Marfil</mat-card-title>
-                      <mat-card-subtitle>Es más barato y no se ve tan lindo</mat-card-subtitle>
-                      <mat-card-content>
-                        <h3>$550.000</h3>
-                        <section>
-                            <mat-radio-button class="example-margin" value="after">Quiero este pleeeease!</mat-radio-button>
-                        </section>
-                      </mat-card-content>
-                    </mat-card>
-  
-                    <mat-card style="flex: 1">
-                      <mat-card-title>Paquete Oro Rosa</mat-card-title>
-                      <mat-card-subtitle>Es muy caro pero queda lindo</mat-card-subtitle>
-                      <mat-card-content>
-                        <h3>$800.000</h3>
-                        <section>
-                            <mat-radio-button class="example-margin" value="after">Quiero este pleeeease!</mat-radio-button>
-                        </section>
-                      </mat-card-content>
-                    </mat-card>
-                  </div>
+                    <div *ngFor="let service of serviceList">
+                      <mat-card>
+                        <app-select-services [services]="service"></app-select-services>
+                      </mat-card>
+                    </div>
                 </mat-expansion-panel>
               </mat-accordion>
           
