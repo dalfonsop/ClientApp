@@ -1,9 +1,9 @@
-<mat-card>
+<mat-card appearance="outlined">
   <form [formGroup]="invoiceDataForm">
     <mat-stepper  [orientation]="(stepperOrientation |async)!">
       <mat-step formGroupName="personalDataInformation" [stepControl]="invoiceDataForm.get('personalDataInformation')!">
         <ng-template matStepLabel>Datos Personales - Novia</ng-template>
-        <mat-card style="border-radius: 6px;display: flexbox;">
+        <mat-card appearance="outlined" style="border-radius: 6px;display: flexbox;">
           <article style="display: inline-flexbox;">
             <mat-form-field appearance="fill" style="width: 100%">
               <mat-label>Nombres</mat-label>
@@ -57,8 +57,8 @@
       <mat-step formGroupName="brideService" [stepControl]="invoiceDataForm.get('brideService')!">
         <ng-template matStepLabel>Servicios Novia</ng-template>
         <ng-template matStepContent>
-            <mat-card style="border-radius: 5px;">
-              <mat-accordion style="display: flex;">
+            <mat-card appearance="outlined" style="border-radius: 5px;">
+              <mat-accordion class="example-headers-align">
                 <mat-expansion-panel (opened)="true" >
                   <mat-expansion-panel-header>
                     <mat-panel-title style="display: flex;">
@@ -70,7 +70,7 @@
                     </mat-panel-description>
                   </mat-expansion-panel-header>
                     <div *ngFor="let service of serviceList">
-                      <mat-card>
+                      <mat-card appearance="outlined">
                         <app-select-services [services]="service"></app-select-services>
                       </mat-card>
                     </div>
@@ -111,7 +111,7 @@
       </mat-step>
       <mat-step formGroupName="weddingInformation" [stepControl]="invoiceDataForm.get('weddingInformation')!">
         <ng-template matStepLabel>Información Boda</ng-template>
-        <mat-card>
+        <mat-card appearance="outlined">
           <article>
             <mat-form-field appearance="fill" style="width: 100%; margin: 0.5%;">
               <mat-label>Fecha Boda</mat-label>
@@ -157,7 +157,7 @@
           <div *ngFor="let additionalService of additionalServices.controls; let i = index;">
             <div [formGroupName]="i">
 
-              <mat-card>
+              <mat-card appearance="outlined">
                 <h3><b>Acompañante {{i + 1 }}</b></h3>
                 <mat-form-field class="example-full-width" appearance="fill" style="margin: 0.5%;width: 100%;">
                   <mat-label>Nombres y Apellidos</mat-label>
@@ -192,7 +192,7 @@
       </mat-step>
       <mat-step>
         <ng-template matStepLabel>Resumen</ng-template>
-        <mat-card>
+        <mat-card appearance="outlined">
           <button mat-button style="margin: 0.5%;display: flexbox;width: 100%;" (click)="gpdf()">Visualizar Cuenta de Cobro</button>
         </mat-card>
       </mat-step>

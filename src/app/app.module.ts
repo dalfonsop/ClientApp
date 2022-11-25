@@ -9,25 +9,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FooterComponent } from './components/footer/footer/footer.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyListModule as MatListModule } from '@angular/material/legacy-list';
+import { MatListModule } from '@angular/material/list';
 import { AppRoutingModule } from './app-routing.module';
 import { InvoiceDataComponent } from './components/invoice-data/invoice-data/invoice-data.component';
 import { PrincipalComponent } from './components/principal/principal/principal.component';
 import {MatStepperModule} from '@angular/material/stepper';
-import {MatLegacyFormFieldModule as MatFormFieldModule} from '@angular/material/legacy-form-field';
-import {MatLegacyCardModule as MatCardModule} from '@angular/material/legacy-card';
-import {MatLegacyInputModule as MatInputModule} from '@angular/material/legacy-input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCardModule} from '@angular/material/card';
+import {MatInputModule} from '@angular/material/input';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatLegacySelectModule as MatSelectModule} from '@angular/material/legacy-select';
-import {MatLegacyTableModule as MatTableModule} from '@angular/material/legacy-table';
+import {MatSelectModule} from '@angular/material/select';
+import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
-import {MatLegacyRadioModule as MatRadioModule} from '@angular/material/legacy-radio';
+import {MatRadioModule} from '@angular/material/radio';
 import { SelectServicesComponent } from './components/select-services/select-services.component';
-
 
 
 @NgModule({
