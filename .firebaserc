@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "dev-laprimeramujer": {
+      "hosting": {
+        "evamakeup_front": [
+          "dev-laprimeramujer"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "dev-laprimeramujer"
+  }
+}

@@ -24,7 +24,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/assets"            ],
+              "src/assets"
+            ],
             "styles": [
               "src/custom-theme.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
@@ -124,6 +125,17 @@
               "extractLicenses": true,
               "vendorChunk": false
             }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "evamakeup_front:build:production",
+            "firebaseProject": "dev-laprimeramujer",
+            "firebaseHostingSite": "dev-laprimeramujer",
+            "serverTarget": "evamakeup_front:server:production"
           }
         }
       }
