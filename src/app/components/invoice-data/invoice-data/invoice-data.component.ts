@@ -5,13 +5,18 @@ import { UntypedFormArray, UntypedFormBuilder, UntypedFormControl, UntypedFormGr
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Service } from 'src/app/models/Services';
+import { addDoc, collection } from "firebase/firestore";
+import { CollectionReference, docSnapshots, DocumentData, Firestore, getFirestore } from '@angular/fire/firestore';
+import { FirebaseApp, FirebaseApps, initializeApp } from '@angular/fire/app';
+import { getDoc, getDocs } from '@firebase/firestore';
+import { ref } from '@angular/fire/database';
 
-export interface TaxType{
+export interface TaxType {
   id: number;
   detailTaxType: string
 }
 
-export interface Cities{
+export interface Cities {
   id: number;
   name: string;
   deliveryCost: number;
@@ -27,22 +32,22 @@ export class InvoiceDataComponent implements OnInit {
   invoiceDataForm: UntypedFormGroup;
   taxTypes: TaxType[];
   cities: Cities[];
-  serviceList: Service[];
+  serviceList: Service[] = [];
   stepperOrientation: Observable<StepperOrientation>;
 
-  constructor(private _formBuilder: UntypedFormBuilder, breakPointObserver: BreakpointObserver) {
+  constructor(private _formBuilder: UntypedFormBuilder, breakPointObserver: BreakpointObserver, private store: Firestore) {
     this.stepperOrientation = breakPointObserver.observe('(min-width:800px)').pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
     this.invoiceDataForm = this._formBuilder.group({});
 
-    this.taxTypes = [{id: 1, detailTaxType: 'Cedula Ciudadanía'},{id: 2, detailTaxType: 'Cedula Extranjería'},{id: 3, detailTaxType: 'Tarjeta Identidad'},{id: 4, detailTaxType: 'Pasaporte'}];
-    this.cities = [{id:1, name:'Bogotá DC', deliveryCost: 60000}, {id:2, name:'Villa de Leyva', deliveryCost:320000}, {id:3, name:'Subachoque', deliveryCost:180000}, {id:4, name:'Duitama', deliveryCost: 300000}, {id:5, name:'Chia', deliveryCost:30000}, {id:6, name:'Cota', deliveryCost: 40000}];
-    this.serviceList = [{id:1,serviceName:'Paquete Coral',serviceValue:850000,servicesDetails:[{id:1, description:"Barato"},{id:2, description:"Lindo"},]},
-    {id:2,serviceName:'Paquete Oro Rosa',serviceValue:980000,servicesDetails:[{id:1, description:"Barato"},{id:2, description:"Lindo"},]},
-    {id:3,serviceName:'Paquete Marfil',serviceValue:600000,servicesDetails:[{id:1, description:"Barato"},{id:2, description:"Lindo"},]}]
+    this.taxTypes = [{ id: 1, detailTaxType: 'Cedula Ciudadanía' }, { id: 2, detailTaxType: 'Cedula Extranjería' }, { id: 3, detailTaxType: 'Tarjeta Identidad' }, { id: 4, detailTaxType: 'Pasaporte' }];
+    this.cities = [{ id: 1, name: 'Bogotá DC', deliveryCost: 60000 }, { id: 2, name: 'Villa de Leyva', deliveryCost: 320000 }, { id: 3, name: 'Subachoque', deliveryCost: 180000 }, { id: 4, name: 'Duitama', deliveryCost: 300000 }, { id: 5, name: 'Chia', deliveryCost: 30000 }, { id: 6, name: 'Cota', deliveryCost: 40000 }];
   }
 
   ngOnInit(): void {
     this.buildForm();
+    this.getParametrics();
+
+
   }
   buildForm() {
     this.invoiceDataForm = this._formBuilder.group({
@@ -74,7 +79,7 @@ export class InvoiceDataComponent implements OnInit {
         this._formBuilder.group({
           name: new UntypedFormControl('', []),
           cellphone: new UntypedFormControl('', []),
-          details: new UntypedFormControl('',[]),
+          details: new UntypedFormControl('', []),
           serviceType: new UntypedFormControl('', []),
         })
       ])
@@ -99,16 +104,18 @@ export class InvoiceDataComponent implements OnInit {
     this.additionalServices.removeAt(additionalServiceIndex);
   }
 
-  gpdf() {
-    const a = `  <div style="border: 5%;color: pink;border-style: dotted;">
-    <h5 style="text-align: center;font-size: medium;">Dermeva</h5>
-    <h1 style="text-align: center;font-size: medium">Cuenta de Cobro</h1>
-    <h3 style="text-align: center;font-size: medium"> Daniel Alfonso</h3>
-
-    <br>
-    <br>
+  insertServices(service: CollectionReference<DocumentData>) {
+    return addDoc(service, { data: this.serviceList })
+  }
 
 
-  </div>`;
+  async getParametrics() {
+    const parametrics: CollectionReference<DocumentData> = collection(this.store, 'Parametrics')
+    const services = await getDocs(parametrics)
+    this.serviceList = [];
+
+    const documents =(services.docs.map((doc) => doc.data()));
+    this.serviceList = documents[0]['data'];
+
   }
 }
