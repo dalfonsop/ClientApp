@@ -10,6 +10,7 @@ import { CollectionReference, docSnapshots, DocumentData, Firestore, getFirestor
 import { FirebaseApp, FirebaseApps, initializeApp } from '@angular/fire/app';
 import { getDoc, getDocs } from '@firebase/firestore';
 import { ref } from '@angular/fire/database';
+import { jsPDF } from "jspdf";
 
 export interface TaxType {
   id: number;
@@ -30,23 +31,20 @@ export interface Cities {
 
 export class InvoiceDataComponent implements OnInit {
   invoiceDataForm: UntypedFormGroup;
-  taxTypes: TaxType[];
-  cities: Cities[];
+  taxTypes: TaxType[] = [];
+  cities: Cities[] =[];
   serviceList: Service[] = [];
   stepperOrientation: Observable<StepperOrientation>;
 
   constructor(private _formBuilder: UntypedFormBuilder, breakPointObserver: BreakpointObserver, private store: Firestore) {
     this.stepperOrientation = breakPointObserver.observe('(min-width:800px)').pipe(map(({ matches }) => (matches ? 'horizontal' : 'vertical')));
     this.invoiceDataForm = this._formBuilder.group({});
-
-    this.taxTypes = [{ id: 1, detailTaxType: 'Cedula Ciudadanía' }, { id: 2, detailTaxType: 'Cedula Extranjería' }, { id: 3, detailTaxType: 'Tarjeta Identidad' }, { id: 4, detailTaxType: 'Pasaporte' }];
-    this.cities = [{ id: 1, name: 'Bogotá DC', deliveryCost: 60000 }, { id: 2, name: 'Villa de Leyva', deliveryCost: 320000 }, { id: 3, name: 'Subachoque', deliveryCost: 180000 }, { id: 4, name: 'Duitama', deliveryCost: 300000 }, { id: 5, name: 'Chia', deliveryCost: 30000 }, { id: 6, name: 'Cota', deliveryCost: 40000 }];
   }
 
   ngOnInit(): void {
     this.buildForm();
-    this.getParametrics();
-
+    //this.getParametrics();
+    this.insertParametrics();
 
   }
   buildForm() {
@@ -118,4 +116,26 @@ export class InvoiceDataComponent implements OnInit {
     this.serviceList = documents[0]['data'];
 
   }
+
+  async insertParametrics(){
+    this.taxTypes = [{ id: 1, detailTaxType: 'Cedula Ciudadanía' }, { id: 2, detailTaxType: 'Cedula Extranjería' }, { id: 3, detailTaxType: 'Tarjeta Identidad' }, { id: 4, detailTaxType: 'Pasaporte' }];
+    this.cities = [{ id: 1, name: 'Bogotá DC', deliveryCost: 60000 }, { id: 2, name: 'Villa de Leyva', deliveryCost: 320000 }, { id: 3, name: 'Subachoque', deliveryCost: 180000 }, { id: 4, name: 'Duitama', deliveryCost: 300000 }, { id: 5, name: 'Chia', deliveryCost: 30000 }, { id: 6, name: 'Cota', deliveryCost: 40000 }];
+
+    await addDoc(collection(this.store,'Parametrics'),{data: this.taxTypes})
+    await addDoc(collection(this.store,'Parametrics'),{data: this.cities})
+
+  }
+
+
+  viewCuentaCobro(){
+    const doc = new jsPDF();
+    
+    doc.text("EVA STUDIO",100,5,{baseline:'middle',align:'center'});
+    doc.text("CUENTA DE COBRO",100,20,{baseline:'middle',align:'center'});
+    doc.text("BRIDES BY EVA",100,30,{baseline:'middle',align:'center'});
+
+    doc.setFillColor("GRAY")
+    doc.save()
+  }
 }
+
